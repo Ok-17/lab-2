@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список задач</title>
+    <style>
+        *,
+        *:before,
+        *:after {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+        }
+
+        /* Добавляем анимированные частицы для красоты */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            animation: float 15s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            width: 40%;
+            top: 50%;
+            left: 50%;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            min-width: 450px;
+            position: absolute;
+            min-height: 100px;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        /* Остальные стили остаются такими же */
+        #newtask {
+            position: relative;
+            padding: 30px 20px;
+        }
+
+        #newtask input {
+            width: 80%;
+            height: 45px;
+            padding: 12px;
+            color: #111111;
+            font-weight: 500;
+            position: relative;
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 15px;
+            border: 2px solid #e1e8ed;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        #newtask input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        #newtask button {
+            position: relative;
+            float: right;
+            font-weight: 500;
+            font-size: 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            color: #ffffff;
+            cursor: pointer;
+            outline: none;
+            width: 15%;
+            height: 45px;
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        #newtask button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        #tasks {
+            border-radius: 15px;
+            width: 100%;
+            position: relative;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            margin-top: 10px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .task {
+            border-radius: 10px;
+            align-items: center;
+            justify-content: space-between;
+            border: 1px solid #e1e8ed;
+            cursor: pointer;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            height: 50px;
+ 
+        margin-bottom: 10px;
+            padding: 5px 15px;
+            display: flex;
+            transition: all 0.3s ease;
+        }
+
+        .task:hover {
+            background: linear-gradient(135deg, #e3e9f7 0%, #b8c6e0 100%);
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .task span {
+            font-family: 'Poppins', sans-serif;
+            font-size: 15px;
+            font-weight: 400;
+            color: #2c3e50;
+            flex-grow: 1;
+        }
+
+        .task button {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+            color: #ffffff;
+            border: none;
+            cursor: pointer;
+            outline: none;
+            height: 35px;
+            width: 35px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(255, 107, 107, 0.3);
+        }
+
+        .task button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+        }
+
+        .task button svg {
+            width: 16px;
+            height: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+    
+    <div class="container">
+        <div id="newtask">
+            <input type="text" placeholder="✏️ Введите описание задачи">
+            <button id="push">
+                <svg xmlns="http://www.w3.org/2000/svg&quot; width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+            </button>
+        </div>
+        <div id="tasks"></div>
+    </div>
+
+    <script>
+        // Создаем анимированные частицы
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 15;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Случайные параметры
+                const size = Math.random() * 20 + 5;
+                const left = Math.random() * 100;
+                const animationDelay = Math.random() * 15;
+                const animationDuration = Math.random() * 10 + 15;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${left}vw`;
+                particle.style.animationDelay = `${animationDelay}s`;
+                particle.style.animationDuration = `${animationDuration}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        window.onload = function () {
+            createParticles();
+            
+            document.querySelector('#push').onclick = function () {
+                const taskInput = document.querySelector('#newtask input');
+                const taskValue = taskInput.value.trim();
+
+                if (taskValue.length === 0) {
+                    alert("📝 Пожалуйста, введите название задачи!");
+                    return;
+                }
+
+                document.querySelector('#tasks').innerHTML += `
+                    <div class="task">
+                        <span>${taskValue}</span>
+                        <button class="delete">
+                            <svg xmlns="http://www.w3.org/2000/svg&quot; width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="3 6 5 6 21 6"></polyline>
+ <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                            </svg>
+                        </button>
+                    </div>
+                `;
+
+                const deleteButtons = document.querySelectorAll(".delete");
+                deleteButtons.forEach(button => {
+                    button.onclick = function () {
+                        this.parentNode.style.animation = 'fadeOut 0.3s ease';
+                        setTimeout(() => {
+                            this.parentNode.remove();
+                        }, 300);
+                    };
+                });
+
+                taskInput.value = '';
+            };
+
+            document.querySelector('#newtask input').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    document.querySelector('#push').click();
+                }
+            });
+        };
+    </script>
+</body>
+</html>
