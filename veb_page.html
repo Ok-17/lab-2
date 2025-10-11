@@ -1,0 +1,590 @@
+<html>
+<head>
+    <title>Веб-страница</title>
+    <style>
+          * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            background-color: ##f5f5f5;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        header {
+            background-color: #1C2A71;
+            padding: 15px 30px;
+            display: flex;
+            align-items: center;
+            color: white;
+            border-bottom: 1px solid #34495e;
+        }
+        
+        .user-photo {
+            width: 70px; 
+            height: 70px; 
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 20px; 
+            border: 2px solid #ecf0f1; 
+        }
+        
+        .user-info {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            margin-right: 30px; 
+        }
+        
+        .user-details {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        
+        .user-name {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 5px; 
+            position: relative;
+            display: inline-block;
+            width: fit-content;
+            white-space: nowrap;
+            color: #ecf0f1;
+        }
+        
+        .name-underline {
+            width: 100%;
+            height: 2px; 
+            background-color: #ecf0f1;
+            margin-top: 3px;
+        }
+        
+        .user-status {
+            font-size: 16px;
+            opacity: 0.8;
+            margin-top: 8px;
+            color: #bdc3c7;
+        }
+        
+        .toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between; 
+            flex-grow: 1; 
+            margin-left: 20px; 
+            gap: 15px; 
+        }
+        
+        .toolbar-item {
+            padding: 12px 22px; 
+            background-color: transparent;
+            border-radius: 4px; 
+            font-size: 18px; 
+            cursor: pointer;
+            transition: all 0.2s;
+            color: white;
+            display: flex;
+            align-items: center;
+            border: none;
+            white-space: nowrap;
+            position: relative;
+        }
+        
+        .toolbar-item:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .toolbar-item:hover .icon,
+        .toolbar-item:hover {
+            color: #ecf0f1;
+        }
+        
+        .search-button {
+            background-color: transparent; 
+            border: 1px solid white;
+            border-radius: 20px; 
+            padding: 10px 22px;
+            cursor: text;
+            color: white;
+            font-size: 15px; 
+            white-space: nowrap;
+            margin-left: auto;
+        }
+        
+        .search-button:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .icon {
+            margin-right: 10px;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        
+        .icon svg {
+            width: 100%;
+            height: 100%;
+            fill: white;
+            transition: all 0.2s;
+        }
+        
+        .toolbar-item:hover .icon svg {
+            fill: #ecf0f1;
+            filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.5));
+        }
+        
+        .user-photo:hover {
+            transform: scale(1.05);
+        }
+        
+        .toolbar-item:hover, .search-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .container {
+            display: flex;
+            flex: 1;
+        }
+        
+        .sidebar {
+            width: 250px;
+            background-color: #34495e;
+            color: white;
+            padding: 20px 0;
+        }
+        
+        .user-sidebar {
+            padding: 20px;
+            border-bottom: 1px solid #4a6278;
+            display: flex;
+            align-items: center;
+        }
+        
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-weight: bold;
+            color: #2c3e50;
+            font-size: 20px;
+        }
+        
+        .user-sidebar-info {
+            flex: 1;
+        }
+        
+        .user-sidebar-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .user-sidebar-email {
+            font-size: 14px;
+            color: #bdc3c7;
+        }
+        
+        .nav-menu {
+            list-style: none;
+            margin-top: 20px;
+        }
+        
+        .nav-item {
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color #1C2A71;
+        }
+        
+        .nav-item:hover {
+            background-color: #1C2A71;
+        }
+        
+        .nav-item.active {
+            background-color: #4876E0;
+            border-left: 4px solid #3498db;
+        }
+        
+        .nav-icon {
+            margin-right: 10px;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .nav-icon svg {
+            width: 100%;
+            height: 100%;
+            fill: white;
+        }
+        
+        main {
+            flex: 1;
+            padding: 30px;
+            background-color: white;
+            margin: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .content-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+        
+        .content-text {
+            line-height: 1.6;
+            color: #555;
+        }
+       
+        footer {
+            background-color: #1C2A71;
+            color: white;
+            padding: 40px 30px;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-section {
+            flex: 1;
+            margin-right: 30px;
+        }
+        
+        .footer-section:last-child {
+            margin-right: 0;
+        }
+        
+        .footer-title {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #ecf0f1;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-link {
+            margin-bottom: 10px;
+        }
+        
+        .footer-link a {
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .footer-link a:hover {
+            color: #ecf0f1;
+        }
+        
+        .footer-user-section {
+            flex: 1;
+            margin-right: 30px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .footer-user {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+        
+        .footer-user-photo {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 15px;
+            border: 2px solid #ecf0f1;
+        }
+        
+        .footer-user-info {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .footer-user-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+            position: relative;
+            display: inline-block;
+            width: fit-content;
+        }
+        
+        .footer-name-underline {
+            width: 100%;
+            height: 2px;
+            background-color: #ecf0f1;
+            margin-top: 3px;
+        }
+        
+        .footer-user-status {
+            font-size: 14px;
+            color: #bdc3c7;
+            margin-top: 5px;
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #4a6278;
+            color: #bdc3c7;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="https://psv4.userapi.com/s/v1/d2/mC7U0OgW_6xnTrhZ5A-uxP1dm5SUcS6Q4DZsKl_RYN7aKpR3Fn8mXJMbCrgzelEqSDBI64nLiNfkjgEKx3MSASKb7oMDU4dY5Cjdf7mkvFoubdoso0ujFpBrmWQTx8llvqCoyNv5i9To/yrbQ52AhaP5ZNb-VS3t1kPPq1-a3I-lnXMCdDmy2HKHG2skS4ADdRDBTKgKk6zSE1-VBeoytRScAu_xfHtkziGO.jpg" 
+             alt="Фото пользователя" 
+             class="user-photo">
+        
+        <div class="user-info">
+            <div class="user-details">
+                <div class="user-name">Двоенко Оксана Юрьевна 
+                    <div class="name-underline"></div>
+                </div>
+                <div class="user-status">студент</div>
+            </div>
+        </div>
+        
+        <nav class="toolbar">
+            <button class="toolbar-item">
+                <span class="icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                    </svg>
+                </span>
+                <span>Дом</span>
+            </button>
+            <button class="toolbar-item">
+                <span class="icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M3 21h18v-2H3v2zM3 8v8l4-4-4-4zm8 9h10v-2H11v2zM3 3v2h18V3H3zm8 6h10V7H11v2zm0 4h10v-2H11v2z"/>
+                    </svg>
+                </span>
+                <span>Панель инструментов</span>
+            </button>
+            <button class="toolbar-item">
+                <span class="icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                    </svg>
+                </span>
+                <span>Профиль</span>
+            </button>
+            <button class="toolbar-item">
+                <span class="icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.82,11.69,4.82,12s0.02,0.64,0.07,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/>
+                    </svg>
+                </span>
+                <span>Настройки</span>
+            </button>
+            <button class="search-button">Найдите что-нибудь...</button>
+        </nav>
+    </header>
+    
+    <div class="container">
+        <nav class="sidebar">
+            <div class="user-sidebar">
+                <div class="user-avatar">О</div>
+                <div class="user-sidebar-info">
+                    <div class="user-sidebar-name">Двоенко Оксана</div>
+                    <div class="user-sidebar-email">oxidvoenko@gmail.com</div>
+                </div>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item active">
+                    <span class="nav-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/>
+                        </svg>
+                    </span>
+                    <span>Панель инструментов</span>
+                </li>
+                <li class="nav-item">
+                    <span class="nav-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+                        </svg>
+                    </span>
+                    <span>Аудитория</span>
+                </li>
+                <li class="nav-item">
+                    <span class="nav-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
+                        </svg>
+                    </span>
+                    <span>Посты</span>
+                </li>
+                <li class="nav-item">
+                    <span class="nav-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/>
+                        </svg>
+                    </span>
+                    <span>Расписания</span>
+                </li>
+                <li class="nav-item">
+                    <span class="nav-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.93 6 11v5l-2 2v1h16v-1l-2-2z"/>
+                        </svg>
+                    </span>
+                    <span>Уведомление</span>
+                </li>
+                <li class="nav-item">
+                    <span class="nav-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M19 3H4.99c-1.11 0-1.98.89-1.98 2L3 19c0 1.1.88 2 1.99 2H19c1.1 0 2-.9 2-2V5c0-1.11-.9-2-2-2zm0 12h-4c0 1.66-1.35 3-3 3s-3-1.34-3-3H4.99V5H19v10z"/>
+                        </svg>
+                    </span>
+                    <span>Входящие</span>
+                </li>
+                <li class="nav-item">
+                    <span class="nav-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                        </svg>
+                    </span>
+                    <span>Профиль</span>
+                </li>
+                <li class="nav-item">
+                    <span class="nav-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/>
+                        </svg>
+                    </span>
+                    <span>Выйти</span>
+                </li>
+            </ul>
+        </nav>
+        
+        <main>
+            <h1 class="content-title">Добро пожаловать в панель управления</h1>
+            <p class="content-text">Здесь вы можете управлять своими настройками, просматривать статистику и работать с контентом. Используйте боковое меню для навигации по разделам.</p>
+            
+            <div style="margin-top: 30px;">
+                <h2>Последние действия</h2>
+                <p class="content-text">У вас нет новых уведомлений. Все системы работают в штатном режиме.</p>
+            </div>
+            
+            <div style="margin-top: 30px;">
+                <h2>Быстрый доступ</h2>
+                <p class="content-text">Используйте кнопки в верхней панели для быстрого доступа к основным функциям.</p>
+            </div>
+        </main>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3 class="footer-title">Быстрые ссылки</h3>
+                <ul class="footer-links">
+                    <li class="footer-link"><a href="#">Отдел новостей</a></li>
+                    <li class="footer-link"><a href="#">Вакансии</a></li>
+                    <li class="footer-link"><a href="#">Карьера</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3 class="footer-title">Подписывайтесь на нас</h3>
+                <ul class="footer-links">
+                    <li class="footer-link"><a href="#">Гитхаб</a></li>
+                    <li class="footer-link"><a href="#">LinkedIn</a></li>
+                    <li class="footer-link"><a href="#">Твиттер</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3 class="footer-title">Компания</h3>
+                <ul class="footer-links">
+                    <li class="footer-link"><a href="#">Политика конфиденциальности</a></li>
+                    <li class="footer-link"><a href="#">Условия и положения</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-user-section">
+                <div class="footer-user">
+                    <img src="https://psv4.userapi.com/s/v1/d2/mC7U0OgW_6xnTrhZ5A-uxP1dm5SUcS6Q4DZsKl_RYN7aKpR3Fn8mXJMbCrgzelEqSDBI64nLiNfkjgEKx3MSASKb7oMDU4dY5Cjdf7mkvFoubdoso0ujFpBrmWQTx8llvqCoyNv5i9To/yrbQ52AhaP5ZNb-VS3t1kPPq1-a3I-lnXMCdDmy2HKHG2skS4ADdRDBTKgKk6zSE1-VBeoytRScAu_xfHtkziGO.jpg" 
+                         alt="Фото пользователя" 
+                         class="footer-user-photo">
+                    <div class="footer-user-info">
+                        <div class="footer-user-name">Двоенко Оксана Юрьевна
+                            <div class="footer-name-underline"></div>
+                        </div>
+                        <div class="footer-user-status">студент</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>© Все права защищены.</p>
+        </div>
+    </footer>
+    
+    <script>
+        const searchButton = document.querySelector('.search-button');
+        
+        searchButton.addEventListener('click', function() {
+            this.textContent = '';
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.placeholder = 'Найдите что-нибудь...';
+            input.style.background = 'transparent';
+            input.style.border = 'none';
+            input.style.outline = 'none';
+            input.style.color = 'white';
+            input.style.width = '100%';
+            input.style.fontSize = '15px';
+            
+            this.appendChild(input);
+            input.focus();
+            
+            input.addEventListener('blur', function() {
+                if (this.value === '') {
+                    searchButton.textContent = 'Найдите что-нибудь...';
+                }
+            });
+        });
+        
+        const navItems = document.querySelectorAll('.nav-item');
+        navItems.forEach(item => {
+            item.addEventListener('click', function() {
+                navItems.forEach(i => i.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
